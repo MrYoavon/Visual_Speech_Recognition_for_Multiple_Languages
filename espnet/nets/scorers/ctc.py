@@ -3,9 +3,9 @@
 import numpy as np
 import torch
 
-from espnet.nets.ctc_prefix_score import CTCPrefixScore
-from espnet.nets.ctc_prefix_score import CTCPrefixScoreTH
-from espnet.nets.scorer_interface import BatchPartialScorerInterface
+from mpc001.espnet.nets.ctc_prefix_score import CTCPrefixScore
+from mpc001.espnet.nets.ctc_prefix_score import CTCPrefixScoreTH
+from mpc001.espnet.nets.scorer_interface import BatchPartialScorerInterface
 
 
 class CTCPrefixScorer(BatchPartialScorerInterface):

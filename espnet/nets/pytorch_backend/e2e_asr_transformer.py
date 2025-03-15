@@ -11,26 +11,26 @@ import math
 import numpy
 import torch
 
-from espnet.nets.ctc_prefix_score import CTCPrefixScore
-from espnet.nets.e2e_asr_common import end_detect
-from espnet.nets.e2e_asr_common import ErrorCalculator
-from espnet.nets.pytorch_backend.ctc import CTC
-from espnet.nets.pytorch_backend.nets_utils import get_subsample
-from espnet.nets.pytorch_backend.nets_utils import make_non_pad_mask
-from espnet.nets.pytorch_backend.nets_utils import th_accuracy
-from espnet.nets.pytorch_backend.transformer.add_sos_eos import add_sos_eos
-from espnet.nets.pytorch_backend.transformer.attention import (
+from mpc001.espnet.nets.ctc_prefix_score import CTCPrefixScore
+from mpc001.espnet.nets.e2e_asr_common import end_detect
+from mpc001.espnet.nets.e2e_asr_common import ErrorCalculator
+from mpc001.espnet.nets.pytorch_backend.ctc import CTC
+from mpc001.espnet.nets.pytorch_backend.nets_utils import get_subsample
+from mpc001.espnet.nets.pytorch_backend.nets_utils import make_non_pad_mask
+from mpc001.espnet.nets.pytorch_backend.nets_utils import th_accuracy
+from mpc001.espnet.nets.pytorch_backend.transformer.add_sos_eos import add_sos_eos
+from mpc001.espnet.nets.pytorch_backend.transformer.attention import (
     MultiHeadedAttention,  # noqa: H301
     RelPositionMultiHeadedAttention,  # noqa: H301
 )
-from espnet.nets.pytorch_backend.transformer.decoder import Decoder
-from espnet.nets.pytorch_backend.transformer.encoder import Encoder
-from espnet.nets.pytorch_backend.transformer.label_smoothing_loss import (
+from mpc001.espnet.nets.pytorch_backend.transformer.decoder import Decoder
+from mpc001.espnet.nets.pytorch_backend.transformer.encoder import Encoder
+from mpc001.espnet.nets.pytorch_backend.transformer.label_smoothing_loss import (
     LabelSmoothingLoss,  # noqa: H301
 )
-from espnet.nets.pytorch_backend.transformer.mask import subsequent_mask
-from espnet.nets.pytorch_backend.transformer.mask import target_mask
-from espnet.nets.scorers.ctc import CTCPrefixScorer
+from mpc001.espnet.nets.pytorch_backend.transformer.mask import subsequent_mask
+from mpc001.espnet.nets.pytorch_backend.transformer.mask import target_mask
+from mpc001.espnet.nets.scorers.ctc import CTCPrefixScorer
 
 
 class E2E(torch.nn.Module):

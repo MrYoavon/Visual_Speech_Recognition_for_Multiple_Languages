@@ -6,7 +6,7 @@ import six
 import torch
 import torch.nn.functional as F
 
-from espnet.nets.pytorch_backend.nets_utils import to_device
+from mpc001.espnet.nets.pytorch_backend.nets_utils import to_device
 
 
 class CTC(torch.nn.Module):
@@ -47,7 +47,7 @@ class CTC(torch.nn.Module):
 
             self.ctc_loss = warp_ctc.CTCLoss(size_average=True, reduce=reduce)
         elif self.ctc_type == "gtnctc":
-            from espnet.nets.pytorch_backend.gtn_ctc import GTNCTCLossFunction
+            from mpc001.espnet.nets.pytorch_backend.gtn_ctc import GTNCTCLossFunction
 
             self.ctc_loss = GTNCTCLossFunction.apply
         else:

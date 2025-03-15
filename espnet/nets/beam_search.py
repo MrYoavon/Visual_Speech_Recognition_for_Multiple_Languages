@@ -11,9 +11,9 @@ from typing import Union
 
 import torch
 
-from espnet.nets.e2e_asr_common import end_detect
-from espnet.nets.scorer_interface import PartialScorerInterface
-from espnet.nets.scorer_interface import ScorerInterface
+from mpc001.espnet.nets.e2e_asr_common import end_detect
+from mpc001.espnet.nets.scorer_interface import PartialScorerInterface
+from mpc001.espnet.nets.scorer_interface import ScorerInterface
 
 
 class Hypothesis(NamedTuple):

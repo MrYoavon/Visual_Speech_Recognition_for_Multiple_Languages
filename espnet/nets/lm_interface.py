@@ -2,9 +2,9 @@
 
 import argparse
 
-from espnet.nets.scorer_interface import ScorerInterface
-from espnet.utils.dynamic_import import dynamic_import
-from espnet.utils.fill_missing_args import fill_missing_args
+from mpc001.espnet.nets.scorer_interface import ScorerInterface
+from mpc001.espnet.utils.dynamic_import import dynamic_import
+from mpc001.espnet.utils.fill_missing_args import fill_missing_args
 
 
 class LMInterface(ScorerInterface):
@@ -27,7 +27,7 @@ class LMInterface(ScorerInterface):
 
         """
         # local import to avoid cyclic import in lm_train
-        from espnet.bin.lm_train import get_parser
+        from mpc001.espnet.bin.lm_train import get_parser
 
         def wrap(parser):
             return get_parser(parser, required=False)
@@ -60,11 +60,11 @@ class LMInterface(ScorerInterface):
 
 predefined_lms = {
     "pytorch": {
-        "default": "espnet.nets.pytorch_backend.lm.default:DefaultRNNLM",
-        "seq_rnn": "espnet.nets.pytorch_backend.lm.seq_rnn:SequentialRNNLM",
-        "transformer": "espnet.nets.pytorch_backend.lm.transformer:TransformerLM",
+        "default": "mpc001.espnet.nets.pytorch_backend.lm.default:DefaultRNNLM",
+        "seq_rnn": "mpc00.1espnet.nets.pytorch_backend.lm.seq_rnn:SequentialRNNLM",
+        "transformer": "mpc001.espnet.nets.pytorch_backend.lm.transformer:TransformerLM",
     },
-    "chainer": {"default": "espnet.lm.chainer_backend.lm:DefaultRNNLM"},
+    "chainer": {"default": "mpc001.espnet.lm.chainer_backend.lm:DefaultRNNLM"},
 }
 
 

@@ -10,8 +10,8 @@ from typing import Tuple
 import torch
 from torch.nn.utils.rnn import pad_sequence
 
-from espnet.nets.beam_search import BeamSearch
-from espnet.nets.beam_search import Hypothesis
+from mpc001.espnet.nets.beam_search import BeamSearch
+from mpc001.espnet.nets.beam_search import Hypothesis
 
 
 class BatchHypothesis(NamedTuple):

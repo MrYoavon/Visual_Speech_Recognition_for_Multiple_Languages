@@ -9,8 +9,8 @@ import torch
 import pickle
 from configparser import ConfigParser
 
-from pipelines.model import AVSR
-from pipelines.data.data_module import AVSRDataLoader
+from mpc001.pipelines.model import AVSR
+from mpc001.pipelines.data.data_module import AVSRDataLoader
 
 
 class InferencePipeline(torch.nn.Module):
@@ -23,15 +23,15 @@ class InferencePipeline(torch.nn.Module):
 
         # modality configuration
         modality = config.get("input", "modality")
-
         self.modality = modality
+
         # data configuration
         input_v_fps = config.getfloat("input", "v_fps")
         model_v_fps = config.getfloat("model", "v_fps")
 
         # model configuration
-        model_path = config.get("model","model_path")
-        model_conf = config.get("model","model_conf")
+        model_path = config.get("model", "model_path")
+        model_conf = config.get("model", "model_conf")
 
         # language model configuration
         rnnlm = config.get("model", "rnnlm")
@@ -43,31 +43,43 @@ class InferencePipeline(torch.nn.Module):
 
         self.dataloader = AVSRDataLoader(modality, speed_rate=input_v_fps/model_v_fps, detector=detector)
         self.model = AVSR(modality, model_path, model_conf, rnnlm, rnnlm_conf, penalty, ctc_weight, lm_weight, beam_size, device)
+
         if face_track and self.modality in ["video", "audiovisual"]:
             if detector == "mediapipe":
-                from pipelines.detectors.mediapipe.detector import LandmarksDetector
+                from mpc001.pipelines.detectors.mediapipe.detector import LandmarksDetector
                 self.landmarks_detector = LandmarksDetector()
-            if detector == "retinaface":
-                from pipelines.detectors.retinaface.detector import LandmarksDetector
+            elif detector == "retinaface":
+                from mpc001.pipelines.detectors.retinaface.detector import LandmarksDetector
                 self.landmarks_detector = LandmarksDetector(device="cuda:0")
         else:
             self.landmarks_detector = None
 
-
-    def process_landmarks(self, data_filename, landmarks_filename):
-        if self.modality == "audio":
-            return None
+    def process_landmarks(self, video_frames, landmarks_filename=None):
+        """
+        Process landmarks for a list of video frames. If a landmarks file is provided,
+        it will be loaded; otherwise, the detector is used directly.
+        """
         if self.modality in ["video", "audiovisual"]:
-            if isinstance(landmarks_filename, str):
-                landmarks = pickle.load(open(landmarks_filename, "rb"))
+            if landmarks_filename is not None and os.path.isfile(landmarks_filename):
+                with open(landmarks_filename, "rb") as f:
+                    landmarks = pickle.load(f)
             else:
-                landmarks = self.landmarks_detector(data_filename)
+                # Assuming the detector can process a list of frames directly.
+                landmarks = self.landmarks_detector(video_frames)
             return landmarks
+        return None
 
+    def forward_buffer(self, video_frames, landmarks_filename=None):
+        """
+        A custom forward method that accepts a list of video frames (frame buffer)
+        instead of a filename.
+        """
+        if self.modality not in ["video", "audiovisual"]:
+            raise ValueError("forward_buffer is only applicable for video or audiovisual modalities")
 
-    def forward(self, data_filename, landmarks_filename=None):
-        assert os.path.isfile(data_filename), f"data_filename: {data_filename} does not exist."
-        landmarks = self.process_landmarks(data_filename, landmarks_filename)
-        data = self.dataloader.load_data(data_filename, landmarks)
+        landmarks = self.process_landmarks(video_frames, landmarks_filename)
+        data = self.dataloader.load_data(video_frames=video_frames, landmarks=landmarks)
+        if data is None:
+            return None
         transcript = self.model.infer(data)
         return transcript

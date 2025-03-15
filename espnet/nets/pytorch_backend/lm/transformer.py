@@ -9,12 +9,12 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from espnet.nets.lm_interface import LMInterface
-from espnet.nets.pytorch_backend.transformer.embedding import PositionalEncoding
-from espnet.nets.pytorch_backend.transformer.encoder import Encoder
-from espnet.nets.pytorch_backend.transformer.mask import subsequent_mask
-from espnet.nets.scorer_interface import BatchScorerInterface
-from espnet.utils.cli_utils import strtobool
+from mpc001.espnet.nets.lm_interface import LMInterface
+from mpc001.espnet.nets.pytorch_backend.transformer.embedding import PositionalEncoding
+from mpc001.espnet.nets.pytorch_backend.transformer.encoder import Encoder
+from mpc001.espnet.nets.pytorch_backend.transformer.mask import subsequent_mask
+from mpc001.espnet.nets.scorer_interface import BatchScorerInterface
+from mpc001.espnet.utils.cli_utils import strtobool
 
 
 class TransformerLM(nn.Module, LMInterface, BatchScorerInterface):

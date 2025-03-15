@@ -2,7 +2,7 @@ import math
 import torch.nn as nn
 import pdb
 
-from espnet.nets.pytorch_backend.transformer.convolution import Swish
+from mpc001.espnet.nets.pytorch_backend.transformer.convolution import Swish
 
 
 def conv3x3(in_planes, out_planes, stride=1):

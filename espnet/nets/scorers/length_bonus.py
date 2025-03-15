@@ -5,7 +5,7 @@ from typing import Tuple
 
 import torch
 
-from espnet.nets.scorer_interface import BatchScorerInterface
+from mpc001.espnet.nets.scorer_interface import BatchScorerInterface
 
 
 class LengthBonus(BatchScorerInterface):

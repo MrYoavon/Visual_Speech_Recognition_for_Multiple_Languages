@@ -61,6 +61,8 @@ class VideoProcess:
         self.convert_gray = convert_gray
 
     def __call__(self, video, landmarks):
+        if landmarks is None:
+            return
         # Pre-process landmarks: interpolate frames that are not detected
         preprocessed_landmarks = self.interpolate_landmarks(landmarks)
         # Exclude corner cases: no landmark in all frames
@@ -68,7 +70,7 @@ class VideoProcess:
             return
         # Affine transformation and crop patch
         sequence = self.crop_patch(video, preprocessed_landmarks)
-        assert sequence is not None, f"cannot crop a patch from {filename}."
+        assert sequence is not None, f"cannot crop a patch."
         return sequence
 
 

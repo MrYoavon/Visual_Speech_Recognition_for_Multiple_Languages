@@ -4,7 +4,7 @@
 # Copyright 2021 Imperial College London (Pingchuan Ma)
 # Apache 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
 import torch
-from espnet.nets.pytorch_backend.backbones.modules.resnet1d import ResNet1D, BasicBlock1D
+from mpc001.espnet.nets.pytorch_backend.backbones.modules.resnet1d import ResNet1D, BasicBlock1D
 
 class Conv1dResNet(torch.nn.Module):
     def __init__(self, relu_type="swish", a_upsample_ratio=1):

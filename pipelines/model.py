@@ -10,13 +10,13 @@ import torch
 import argparse
 import numpy as np
 
-from espnet.asr.asr_utils import torch_load
-from espnet.asr.asr_utils import get_model_conf
-from espnet.asr.asr_utils import add_results_to_json
-from espnet.nets.batch_beam_search import BatchBeamSearch
-from espnet.nets.lm_interface import dynamic_import_lm
-from espnet.nets.scorers.length_bonus import LengthBonus
-from espnet.nets.pytorch_backend.e2e_asr_transformer import E2E
+from mpc001.espnet.asr.asr_utils import torch_load
+from mpc001.espnet.asr.asr_utils import get_model_conf
+from mpc001.espnet.asr.asr_utils import add_results_to_json
+from mpc001.espnet.nets.batch_beam_search import BatchBeamSearch
+from mpc001.espnet.nets.lm_interface import dynamic_import_lm
+from mpc001.espnet.nets.scorers.length_bonus import LengthBonus
+from mpc001.espnet.nets.pytorch_backend.e2e_asr_transformer import E2E
 
 
 class AVSR(torch.nn.Module):
@@ -26,9 +26,9 @@ class AVSR(torch.nn.Module):
         self.device = device
 
         if modality == "audiovisual":
-            from espnet.nets.pytorch_backend.e2e_asr_transformer_av import E2E
+            from mpc001.espnet.nets.pytorch_backend.e2e_asr_transformer_av import E2E
         else:
-            from espnet.nets.pytorch_backend.e2e_asr_transformer import E2E
+            from mpc001.espnet.nets.pytorch_backend.e2e_asr_transformer import E2E
 
         with open(model_conf, "rb") as f:
             confs = json.load(f)
